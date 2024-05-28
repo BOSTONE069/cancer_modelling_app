@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Publications Search</title>
+</head>
+<body>
+    <h1>Search Publications</h1>
+    <form method="GET" action="{% url 'publications' %}">
+        <label for="keyword">Keyword:</label>
+        <input type="text" id="keyword" name="keyword" value="{{ keyword }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if error %}
+        <p>Error: {{ error }}</p>
+    {% else %}
+        {% if publications %}
+            <h2>Results for "{{ keyword }}"</h2>
+            <ul>
+                {% for publication in publications %}
+                    <li>
+                        <h3>{{ publication.title }}</h3>
+                        <p><strong>Authors:</strong> {{ publication.author }}</p>
+                        <p><strong>Year:</strong> {{ publication.pub_year }}</p>
+                        <p><strong>Journal:</strong> {{ publication.journal }}</p>
+                        <p><strong>Abstract:</strong> {{ publication.abstract }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No publications found for "{{ keyword }}".</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
