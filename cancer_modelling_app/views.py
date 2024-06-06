@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from serpapi import GoogleSearch
 from django.conf import settings
 from .models import SearchAnalytics 
@@ -37,8 +37,11 @@ def search_publications(keyword):
     return publications
 
 def publications_view(request):
-    keyword = request.GET.get('keyword', 'cancer')  # Default keyword is 'cancer'
-
+    if request.method == 'POST':
+        keyword = request.POST.get('keyword')
+        return redirect('publications_search', keyword=keyword)
+    else:
+        keyword = request.GET.get('keyword')  # Default keyword is 'cancer'
     # Save the search keyword to the database
     if keyword:
         SearchAnalytics.objects.create(keyword=keyword)
