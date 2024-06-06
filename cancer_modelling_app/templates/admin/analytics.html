@@ -1,0 +1,41 @@
+<!-- templates/admin/analytics.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Search Analytics</h1>
+    <canvas id="searchAnalyticsChart" width="400" height="200"></canvas>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('searchAnalyticsChart').getContext('2d');
+            var keywords = {{ keywords|safe }};
+            var counts = {{ counts|safe }};
+
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: keywords,
+                    datasets: [{
+                        label: '# of Searches',
+                        data: counts,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
