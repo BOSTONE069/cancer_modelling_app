@@ -10,7 +10,7 @@
         <label for="keyword">Keyword:</label>
         <input type="text" id="keyword" name="keyword" value="{{ keyword }}">
         <button type="submit">Search</button>
-    </form>    
+    </form>
 
     {% if error %}
         <p>Error: {{ error }}</p>
@@ -20,7 +20,7 @@
             <ul>
                 {% for publication in publications %}
                     <li>
-                        <h3>{{ publication.title }}</h3>
+                        <h3><a href="{{ publication.link }}" target="_blank">{{ publication.title }}</a></h3>
                         <p><strong>Authors:</strong> {{ publication.author }}</p>
                         <p><strong>Year:</strong> {{ publication.pub_year }}</p>
                         <p><strong>Journal:</strong> {{ publication.journal }}</p>

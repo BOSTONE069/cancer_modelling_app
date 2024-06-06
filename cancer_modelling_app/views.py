@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from serpapi import GoogleSearch
 from django.conf import settings
 
@@ -9,6 +9,7 @@ def extract_publication_info(result):
         'pub_year': result.get('publication_info', {}).get('summary', '').split('-')[-1].strip(),
         'abstract': result.get('snippet', 'N/A'),
         'journal': result.get('publication_info', {}).get('summary', '').split(',')[1].strip(),
+        'link': result.get('link', '#')  # Extract the publication link
     }
 
 def search_publications(keyword):
@@ -30,24 +31,20 @@ def search_publications(keyword):
     return publications
 
 def publications_view(request):
-    if request.method == 'POST':
-        keyword = request.POST.get('keyword', 'cancer')
-        return redirect('publications_search', keyword=keyword)
-    else:
-        keyword = request.GET.get('keyword', 'cancer')
-        try:
-            publications = search_publications(keyword)
-        except Exception as e:
-            context = {
-                'error': str(e),
-                'keyword': keyword,
-                'publications': [],
-            }
-            return render(request, 'cancer/publications.html', context)
-
+    keyword = request.GET.get('keyword', 'cancer')  # Default keyword is 'cancer'
+    try:
+        publications = search_publications(keyword)
+    except Exception as e:
+        # Handle any exceptions that might occur
         context = {
-            'publications': publications,
+            'error': str(e),
             'keyword': keyword,
+            'publications': [],
         }
         return render(request, 'cancer/publications.html', context)
 
+    context = {
+        'publications': publications,
+        'keyword': keyword,
+    }
+    return render(request, 'cancer/publications.html', context)
