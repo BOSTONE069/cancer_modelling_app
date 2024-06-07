@@ -17,6 +17,16 @@ def extract_publication_info(result):
     }
 
 def search_publications(keyword):
+    """
+    The function `search_publications` searches for publications related to a given keyword using the
+    Google Scholar search engine.
+    
+    :param keyword: The `search_publications` function takes a keyword as input and searches for
+    publications related to that keyword using the Google Scholar search engine. It uses the SERPAPI_KEY
+    from the settings to make the search request
+    :return: The function `search_publications` returns a list of publication information based on the
+    keyword search using the Google Scholar search engine.
+    """
     params = {
         "engine": "google_scholar",
         "q": keyword,
@@ -35,6 +45,19 @@ def search_publications(keyword):
     return publications
 
 def publications_view(request):
+    """
+    The `publications_view` function in Python handles requests to search for publications based on a
+    keyword, saves the search keyword to the database, and displays the search results on a webpage.
+    
+    :param request: The `request` parameter in the `publications_view` function is an object that
+    represents the HTTP request made by a user. It contains information about the request, such as the
+    method used (GET, POST, etc.), any data sent with the request (such as form data), and other
+    metadata
+    :return: The `publications_view` function returns a response with the rendered template
+    'cancer/publications.html' along with the context containing publications and keyword information.
+    If an exception occurs during the search for publications, it will return a response with an error
+    message and an empty list of publications.
+    """
     if request.method == 'POST':
         keyword = request.POST.get('keyword')
         return redirect('publications_search', keyword=keyword)
@@ -65,6 +88,17 @@ def homepage(request):
     return render(request, 'cancer/index.html')
 
 def contacts(request):
+    """
+    The `contacts` function handles form submissions for a contact form in a Django web application.
+    
+    :param request: The `request` parameter in the `contacts` function is an object that represents the
+    HTTP request made by a client to the server. It contains information such as the request method
+    (GET, POST, etc.), headers, user data, and any data sent in the request body. In this function,
+    :return: The contacts view function returns a rendered HTML template 'contacts.html' with a
+    ContactForm instance passed as context data when the HTTP request method is not POST. If the request
+    method is POST, it processes the form data, saves it if valid, and returns an appropriate
+    HttpResponse message based on the form validation result.
+    """
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():

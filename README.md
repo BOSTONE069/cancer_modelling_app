@@ -44,22 +44,27 @@ This project is licensed under the [MIT License](#https://www.mit.edu/~amini/LIC
 
 
 <p style="align:center">
+Home Page 
     <img src="Screenshot at 2024-06-07 11-51-56.png">
 </p>
 
 <p style="align:center">
+Search Page
     <img src="Screenshot at 2024-06-07 11-54-40.png">
 </p>
 
 <p style="align:center">
+Results From Search
     <img src="Screenshot at 2024-06-07 11-59-15.png">
 </p>
 
 <p style="align:center">
+Analytics Display
     <img src="Screenshot at 2024-06-07 12-49-11.png">
 </p>
 
 <p style="align:center">
+Request Analysis
     <img src="Screenshot at 2024-06-07 12-52-08.png">
 </p>
 
