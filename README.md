@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="1.png">
+    <img src="1.jpg">
 </p>
 
 # UZIMA CONNECT CENTER
