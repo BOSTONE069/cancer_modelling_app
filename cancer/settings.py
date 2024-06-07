@@ -44,6 +44,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'jazzmin',
+    'silk',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -61,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
+    'cancer_modelling_app.middleware.PerformanceMetricMiddleware',
 ]
 
 ROOT_URLCONF = 'cancer.urls'
@@ -146,3 +149,18 @@ JAZZMIN_SETTINGS = {
     "search_model": ["auth.User", "auth.Group"],
     
 }
+
+# Your email backend settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'gmail.smtp.server'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'bostoneochieng@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASS')
+
+
+DEFAULT_FROM_EMAIL = 'bostoneochieng@gmail.com'
+
+
+SILKY_AUTHENTICATION = True  # Require user authentication to access Silk
+SILKY_AUTHORISATION = True  # Require user authorization to access Silk
