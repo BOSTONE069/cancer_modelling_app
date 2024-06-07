@@ -2,11 +2,9 @@ from django.shortcuts import redirect, render
 from serpapi import GoogleSearch
 from django.conf import settings
 from .models import SearchAnalytics 
+from .forms import ContactForm
+from django.http import HttpResponse
 
-
-# creating home page function
-def homepage(request):
-    return render(request, 'cancer/index.html')
 
 def extract_publication_info(result):
     return {
@@ -61,3 +59,19 @@ def publications_view(request):
         'keyword': keyword,
     }
     return render(request, 'cancer/publications.html', context)
+
+
+def homepage(request):
+    return render(request, 'cancer/index.html')
+
+def contacts(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Your message has been sent. Thank you!', status=200)
+        else:
+            return HttpResponse('There was an error in your form submission.', status=400)
+    else:
+        form = ContactForm()
+    return render(request, 'cancer/contacts.html', {'form': form})
