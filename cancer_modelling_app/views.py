@@ -7,6 +7,16 @@ from django.http import HttpResponse
 
 
 def extract_publication_info(result):
+    """
+    The function `extract_publication_info` takes a dictionary `result` as input and extracts specific
+    information such as title, author, publication year, abstract, journal, and link from the
+    dictionary, returning them in a new dictionary.
+    
+    :param result: The `extract_publication_info` function takes a `result` dictionary as input and
+    extracts specific information from it to create a new dictionary with the following keys:
+    :return: The function `extract_publication_info` takes a `result` dictionary as input and returns a
+    new dictionary with the following keys and values:
+    """
     return {
         'title': result.get('title'),
         'author': result.get('publication_info', {}).get('summary', '').split('-')[0].strip(),
@@ -84,6 +94,16 @@ def publications_view(request):
     return render(request, 'cancer/publications.html', context)
 
 
+    """
+    The `homepage` function returns a rendered HTML template for the cancer index page.
+    
+    :param request: The `request` parameter in the `homepage` function is typically an HttpRequest
+    object that represents the request made by a user to access a web page. It contains information
+    about the request such as the user's browser information, session data, and any data sent in the
+    request (e.g., form data
+    :return: The `homepage` function is returning a rendered HTML template named 'index.html' located in
+    the 'cancer' directory.
+    """
 def homepage(request):
     return render(request, 'cancer/index.html')
 

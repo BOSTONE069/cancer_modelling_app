@@ -3,6 +3,8 @@
 import time
 from .models import PerformanceMetric
 
+# The `PerformanceMetricMiddleware` class measures the duration of each request and stores it in a
+# database as a performance metric.
 class PerformanceMetricMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
