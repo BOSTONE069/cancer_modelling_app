@@ -1,6 +1,8 @@
 from django import forms
 from .models import Contact
 
+# The ContactForm class defines a form for capturing contact information with specific field
+# attributes and widgets in a Django application.
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
