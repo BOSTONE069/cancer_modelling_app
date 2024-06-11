@@ -143,11 +143,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 JAZZMIN_SETTINGS = {
-    "site_title": "UZIMA CONNECT",
-    "site_header": "UZIMA CONNECT",
-    "site_brand": "UZIMA CONNECT",
-    "welcome_sign": "UZIMA CONNECT ADMIN PAGE",
-    "copyright": "UZIMA CONNECT",
+    "site_title": "HEALTH CONNECT CENTRE",
+    "site_header": "HEALTH CONNECT CENTRE",
+    "site_brand": "HEALTH CONNECT CENTRE",
+    "welcome_sign": "HEALTH CONNECT CENTRE ADMIN PAGE",
+    "copyright": "HEALTH CONNECT CENTRE",
     "search_model": ["auth.User", "auth.Group"],
     
 }
