@@ -1,0 +1,43 @@
+<!-- templates/admin/search_analytics_change_list.html -->
+
+{% extends "admin/change_list.html" %}
+{% block content %}
+{{ block.super }}
+<div class="chart-container" style="position: relative; height:70vh; width:70vw">
+    <canvas id="myChart"></canvas>
+</div>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chartData = {{ chart_data|safe }};
+        const labels = chartData.map(item => item.keyword);
+        const data = chartData.map(item => item.keyword_count);
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Searches',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

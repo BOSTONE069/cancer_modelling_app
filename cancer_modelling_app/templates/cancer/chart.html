@@ -1,0 +1,66 @@
+{% extends "cancer/layoutout.html" %}
+
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block body %}
+{% load static %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+        <h1>Uzima Connect Cancer Research Center</h1>
+        <form method="GET" action="{% url 'publications' %}" style="display: flex; flex-direction: column; align-items: center;">
+            <label for="keyword" style="margin-bottom: 10px;">Keyword:</label>
+            <input type="text" id="keyword" name="keyword" value="{{ keyword }}" style="margin-bottom: 10px; padding: 5px; width: 200px;">
+            <button type="submit" style="padding: 5px 10px;">Search</button>
+        </form>
+
+        {% if error %}
+            <p>Error: {{ error }}</p>
+        {% else %}
+            {% if publications %}
+                <h2>Results for "{{ keyword }}"</h2>
+                <ul>
+                    {% for publication in publications %}
+                        <li>
+                            <h3><a href="{{ publication.link }}" target="_blank">{{ publication.title }}</a></h3>
+                            <p><strong>Authors:</strong> {{ publication.author }}</p>
+                            <p><strong>Year:</strong> {{ publication.pub_year }}</p>
+                            <p><strong>Journal:</strong> {{ publication.journal }}</p>
+                            <p><strong>Abstract:</strong> {{ publication.abstract }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No publications found for "{{ keyword }}".</p>
+            {% endif %}
+        {% endif %}
+
+        <div>
+            <canvas id="searchAnalyticsChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('searchAnalyticsChart').getContext('2d');
+        var searchAnalyticsChart = new Chart(ctx, {
+            type: 'bar', // Change this to the type of chart you want
+            data: {
+                labels: {{ search_keywords|safe }}, // Labels for the X-axis
+                datasets: [{
+                    label: 'Search Count',
+                    data: {{ search_counts|safe }}, // Data for the Y-axis
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

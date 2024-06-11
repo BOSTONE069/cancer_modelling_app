@@ -4,7 +4,8 @@ from django.conf import settings
 from .models import SearchAnalytics 
 from .forms import ContactForm
 from django.http import HttpResponse
-
+from django.db.models import Count
+from django.http import JsonResponse
 
 def extract_publication_info(result):
     """
@@ -76,7 +77,7 @@ def publications_view(request):
     # Save the search keyword to the database
     if keyword:
         SearchAnalytics.objects.create(keyword=keyword)
-
+        
     try:
         publications = search_publications(keyword)
     except Exception as e:
@@ -129,3 +130,19 @@ def contacts(request):
     else:
         form = ContactForm()
     return render(request, 'cancer/contacts.html', {'form': form})
+
+
+
+def analytics_view(request):
+    # Fetch search data and count occurrences of each keyword
+    search_data = SearchAnalytics.objects.values('keyword').annotate(count=Count('keyword')).order_by('-count')
+
+    # Prepare data for Chart.js
+    keywords = [entry['keyword'] for entry in search_data]
+    counts = [entry['count'] for entry in search_data]
+
+    context = {
+        'keywords': keywords,
+        'counts': counts,
+    }
+    return render(request, 'admin/analytics.html', context)
