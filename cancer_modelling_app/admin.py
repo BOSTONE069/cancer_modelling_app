@@ -1,5 +1,10 @@
 from django.contrib import admin
-
+from django.urls import path
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import SearchAnalytics
+from django.db.models import Count
+from .views import analytics_view
 # Register your models here.
 from .models import SearchAnalytics, Contact, PerformanceMetric
 
@@ -8,6 +13,17 @@ from .models import SearchAnalytics, Contact, PerformanceMetric
 # `SearchAnalyticsAdmin` class to customize the admin interface for the `SearchAnalytics` model.
 @admin.register(SearchAnalytics)
 class SearchAnalyticsAdmin(admin.ModelAdmin):
+    change_list_template = 'admin/search_analytics_change_list.html'
+    def changelist_view(self, request, extra_context=None):
+    # Aggregate search keywords by count
+        chart_data = (
+            SearchAnalytics.objects
+            .values('keyword')
+            .annotate(keyword_count=Count('keyword'))
+            .order_by('-keyword_count')
+        )
+        extra_context = extra_context or {'chart_data': list(chart_data)}
+        return super().changelist_view(request, extra_context=extra_context)
     list_display = ('keyword', 'timestamp')
     list_filter = ('timestamp',)
     search_fields = ('keyword',)
@@ -29,3 +45,6 @@ admin.site.register(Contact, ContactAdmin)
 class PerformanceMetricAdmin(admin.ModelAdmin):
     list_display = ('metric_name', 'value', 'recorded_at')
     list_filter = ('metric_name', 'recorded_at')
+    
+# class SearchAnalyticsAdmin2(admin.ModelAdmin):
+   
