@@ -45,6 +45,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'jazzmin',
     'silk',
+    "django_browser_reload",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'silk.middleware.SilkyMiddleware',
     'cancer_modelling_app.middleware.PerformanceMetricMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'cancer.urls'

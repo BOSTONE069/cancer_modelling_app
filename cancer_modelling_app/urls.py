@@ -6,6 +6,7 @@ from .admin import SearchAnalyticsAdmin
 
 urlpatterns = [
     path('', homepage, name='homepage'),
+    path('about/', about, name='about'),
     path('publications/', publications_view, name='publications'),
     path('publications/search/<str:keyword>/', publications_view, name='publications_search'),
     path('contact/', contacts, name='contact'),

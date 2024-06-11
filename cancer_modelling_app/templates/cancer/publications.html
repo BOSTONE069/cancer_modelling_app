@@ -3,9 +3,9 @@
 {% block body %}
 {% load static %}
 <div style="display: flex; justify-content: center; align-items: center; height: 300vh; flex-direction: column; background-color:pink;">
-    <h1>Uzima Connect Cancer Research Center</h1>
+    <h1>Health Connect Centre</h1>
     <form method="GET" action="{% url 'publications' %}" style="display: flex; flex-direction: column; align-items: center;">
-        <label for="keyword" style="margin-bottom: 10px;">Enter On Cancer:</label>
+        <label for="keyword" style="margin-bottom: 10px;">Center for Cancer Research:</label>
         <input type="text" id="keyword" name="keyword" value="" style="margin-bottom: 10px; padding: 5px; width: 600px; border-radius: 1rem;">
         <button type="submit" style="padding: 5px 10px; background-color: #04AA6D;" class="btn btn-primary btn-lg">Search</button>
     </form>

@@ -108,6 +108,9 @@ def publications_view(request):
 def homepage(request):
     return render(request, 'cancer/index.html')
 
+def about(request):
+    return render(request, 'cancer/about.html')
+
 def contacts(request):
     """
     The `contacts` function handles form submissions for a contact form in a Django web application.
