@@ -1,9 +1,9 @@
 from django.test import TestCase
-
+from django.utils import timezone
 # Create your tests here.
 import unittest
 from datetime import datetime
-from .models import PerformanceMetric
+from .models import PerformanceMetric, Contact
 
 # The `PerformanceMetricTestCase` class contains test methods for a `PerformanceMetric` class,
 # covering string representation, auto timestamp, negative value handling, and empty metric name
@@ -40,3 +40,22 @@ class PerformanceMetricTestCase(unittest.TestCase):
         """
         with self.assertRaises(ValueError):
             metric = PerformanceMetric(metric_name="", value=10.5)
+            
+            
+class ContactTestCase(unittest.TestCase):
+
+    def test_contact_creation(self):
+        contact = Contact.objects.create(name="John Doe", email="johndoe@example.com", subject="Test Subject", message="Test Message")
+        self.assertEqual(contact.name, "John Doe")
+        self.assertEqual(contact.email, "johndoe@example.com")
+        self.assertEqual(contact.subject, "Test Subject")
+        self.assertEqual(contact.message, "Test Message")
+        self.assertTrue(contact.created_at <= timezone.now())
+
+    def test_contact_str_method(self):
+        contact = Contact.objects.create(name="Jane Smith", email="janesmith@example.com", subject="Another Subject", message="Another Message")
+        self.assertEqual(str(contact), "Jane Smith")
+
+    def test_invalid_email(self):
+        with self.assertRaises(Exception):
+            Contact.objects.create(name="Invalid Email", email="invalidemail", subject="Invalid Subject", message="Invalid Message")
